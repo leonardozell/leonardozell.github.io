@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leonardo Aires de Oliveira — Dados & Machine Learning</title>
+<meta name="description" content="Portfólio de Leonardo Aires de Oliveira — Engenharia de Dados, Ciência de Dados e Machine Learning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAFAF8;
+    --bg-raised: #F2F2EF;
+    --ink: #15181B;
+    --muted: #5B6168;
+    --line: #DBDDD8;
+    --accent: #33475B;
+    --accent-soft: #E9EEF1;
+    --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+    --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --max: 880px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  }
+
+  a{ color:inherit; }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- nav ---------- */
+  header.site{
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    background:rgba(250,250,248,0.92);
+    backdrop-filter: blur(6px);
+    z-index:10;
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .nav-name{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:500;
+    text-decoration:none;
+    letter-spacing:0.01em;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .nav-links a{
+    text-decoration:none;
+    font-size:14.5px;
+    color:var(--muted);
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); border-color:var(--accent); }
+
+  @media (max-width:560px){
+    .nav-links{ gap:16px; }
+    .nav-links a{ font-size:13.5px; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:88px 0 64px;
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:48px;
+    align-items:end;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(34px, 5.4vw, 52px);
+    line-height:1.12;
+    margin:0 0 20px;
+    max-width:12ch;
+  }
+  .hero .role{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--accent);
+    margin:0 0 18px;
+  }
+  .hero p.lede{
+    color:var(--muted);
+    font-size:17px;
+    max-width:46ch;
+    margin:0 0 30px;
+  }
+  .hero .cta-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding:11px 20px;
+    border-radius:3px;
+    font-size:14.5px;
+    text-decoration:none;
+    border:1px solid var(--ink);
+    transition:background .15s ease, color .15s ease;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--bg);
+  }
+  .btn-primary:hover{ background:var(--accent); border-color:var(--accent); }
+  .btn-ghost{
+    border-color:var(--line);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  .hero-figure{
+    align-self:end;
+    justify-self:end;
+  }
+  .hero-figure svg{ width:100%; height:auto; max-width:230px; }
+
+  @media (max-width:680px){
+    .hero{ grid-template-columns:1fr; padding-top:56px; }
+    .hero-figure{ display:none; }
+  }
+
+  /* ---------- section shell ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--line); }
+  section .kicker{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+    margin:0 0 30px;
+  }
+  section h2{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:28px;
+    margin:0 0 28px;
+  }
+
+  /* ---------- sobre ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+  }
+  .about-grid p{ color:var(--ink); max-width:56ch; }
+  .about-grid p + p{ margin-top:14px; }
+  .facts{ list-style:none; margin:0; padding:0; }
+  .facts li{
+    padding:12px 0;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    font-size:14.5px;
+  }
+  .facts li:first-child{ border-top:none; }
+  .facts .k{ color:var(--muted); }
+  .facts .v{ text-align:right; }
+
+  @media (max-width:680px){
+    .about-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- trajetória ---------- */
+  .timeline{ list-style:none; margin:0; padding:0; border-left:1px solid var(--line); }
+  .timeline li{
+    position:relative;
+    padding:0 0 32px 28px;
+  }
+  .timeline li:last-child{ padding-bottom:0; }
+  .timeline li::before{
+    content:"";
+    position:absolute;
+    left:-4.5px;
+    top:6px;
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--bg);
+    border:1.5px solid var(--accent);
+  }
+  .timeline .period{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .timeline .role{
+    font-weight:600;
+    font-size:16px;
+    margin:0 0 2px;
+  }
+  .timeline .org{ color:var(--muted); font-size:14.5px; margin:0 0 6px; }
+  .timeline .note{ font-size:14.5px; color:var(--ink); max-width:56ch; }
+
+  /* ---------- projetos ---------- */
+  .projects{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .project{
+    background:var(--bg);
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .project.placeholder{ background:var(--bg-raised); }
+  .project-title{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:500;
+    margin:0;
+  }
+  .project-desc{ color:var(--muted); font-size:14.5px; flex-grow:1; }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    padding:3px 8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-radius:2px;
+  }
+  .project-links{ display:flex; gap:16px; }
+  .project-links a{
+    font-size:13.5px;
+    text-decoration:none;
+    border-bottom:1px solid var(--muted);
+  }
+  .project-links a:hover{ border-color:var(--ink); }
+  .placeholder .project-desc{ font-style:italic; }
+
+  @media (max-width:680px){
+    .projects{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:32px;
+  }
+  .skill-group h3{
+    font-size:14px;
+    font-weight:600;
+    margin:0 0 12px;
+  }
+  .skill-group ul{
+    list-style:none; margin:0; padding:0;
+    color:var(--muted);
+    font-size:14.5px;
+  }
+  .skill-group li{ padding:4px 0; }
+
+  @media (max-width:680px){
+    .skills-grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  /* ---------- contato ---------- */
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:32px;
+    align-items:baseline;
+    justify-content:space-between;
+  }
+  .contact-links{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .contact-links a{
+    text-decoration:none;
+    font-size:16px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:2px;
+  }
+  .contact-links a:hover{ border-color:var(--ink); }
+  .contact-note{ color:var(--muted); max-width:34ch; font-size:14.5px; }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0 40px;
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  /* ---------- edit marker (remova ao publicar) ---------- */
+  .edit{
+    outline:1px dashed #B9862B;
+    outline-offset:3px;
+  }
+  .edit-note{
+    display:block;
+    font-family:var(--mono);
+    font-size:11px;
+    color:#B9862B;
+    margin-top:4px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="nav-name" href="#top">Leonardo Aires</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#trajetoria">Trajetória</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <section class="hero" style="border-top:none;">
+    <div>
+      <p class="role">Dados · Machine Learning · Automação</p>
+      <h1>Transformo dados dispersos em decisões claras.</h1>
+      <p class="lede">Formado em Análise e Desenvolvimento de Sistemas, com pós-graduações em Big Data Analytics e em Data Science &amp; Inteligência Artificial. Venho de áreas de gestão e operações — hoje aplico esse olhar de negócio a problemas de dados.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projetos">Ver projetos</a>
+        <a class="btn btn-ghost edit" href="curriculo.pdf">Baixar currículo<span class="edit-note">edite: aponte para seu PDF de currículo</span></a>
+      </div>
+    </div>
+    <div class="hero-figure" aria-hidden="true">
+      <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="10,150 55,110 95,130 140,60 185,85 210,40" fill="none" stroke="#33475B" stroke-width="2"/>
+        <circle cx="10" cy="150" r="3.5" fill="#33475B"/>
+        <circle cx="55" cy="110" r="3.5" fill="#33475B"/>
+        <circle cx="95" cy="130" r="3.5" fill="#33475B"/>
+        <circle cx="140" cy="60" r="3.5" fill="#33475B"/>
+        <circle cx="185" cy="85" r="3.5" fill="#33475B"/>
+        <circle cx="210" cy="40" r="4.5" fill="#15181B"/>
+        <line x1="10" y1="180" x2="210" y2="180" stroke="#DBDDD8" stroke-width="1"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <p class="kicker">Sobre</p>
+    <div class="about-grid">
+      <div>
+        <p>Passei os últimos anos em posições de gestão financeira e operações — planejamento, análise de números e tomada de decisão sob pressão. A pós-graduação em Big Data Analytics foi o ponto em que decidi levar essa mesma disciplina para dados: hoje curso Data Science &amp; Inteligência Artificial, com foco em ETL, análise de dados e Machine Learning.</p>
+        <p class="edit">Complete aqui: 2–3 frases sobre o tipo de problema que você mais gosta de resolver, e o que te diferencia — por exemplo, sua experiência prévia com gestão, operação ou pessoas aplicada a projetos de dados.<span class="edit-note">edite este parágrafo</span></p>
+      </div>
+      <ul class="facts">
+        <li><span class="k">Localização</span><span class="v">Brasília, DF</span></li>
+        <li><span class="k">Formação</span><span class="v">ADS — Anhanguera, 2020</span></li>
+        <li><span class="k">Pós-graduação</span><span class="v">Big Data Analytics — Senac, 2024</span></li>
+        <li><span class="k">Pós-graduação</span><span class="v">Data Science &amp; IA — Senac, prev. 06/2026</span></li>
+        <li><span class="k">Idiomas</span><span class="v">Português (nativo), inglês avançado</span></li>
+        <li><span class="k">Disponibilidade</span><span class="v">Para viagens</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="trajetoria">
+    <p class="kicker">Trajetória</p>
+    <h2>Experiência</h2>
+    <ul class="timeline">
+      <li>
+        <p class="period">2024 — 2025</p>
+        <p class="role">Gerente Financeiro</p>
+        <p class="org">Méric Bebidas</p>
+        <p class="note edit">Descreva em uma linha o que você geria — fluxo de caixa, indicadores, relatórios — algo que conecte com análise de dados.<span class="edit-note">edite esta linha</span></p>
+      </li>
+      <li>
+        <p class="period">2023 — 2024</p>
+        <p class="role">Secretário Executivo</p>
+        <p class="org">Nishizawa Advocacia</p>
+        <p class="note edit">Uma linha sobre a função.<span class="edit-note">edite esta linha</span></p>
+      </li>
+      <li>
+        <p class="period">2022</p>
+        <p class="role">Tradutor</p>
+        <p class="org">BAYZ</p>
+        <p class="note edit">Uma linha sobre a função — reforça o inglês avançado.<span class="edit-note">edite esta linha</span></p>
+      </li>
+      <li>
+        <p class="period">2017 — 2022</p>
+        <p class="role">Vendedor</p>
+        <p class="org">Agropet Vivendas</p>
+        <p class="note edit">Uma linha sobre a função.<span class="edit-note">edite esta linha</span></p>
+      </li>
+      <li>
+        <p class="period">2007 — 2015</p>
+        <p class="role">Força Aérea Brasileira</p>
+        <p class="org">Suporte de TI e Inteligência</p>
+        <p class="note edit">Uma linha sobre atribuições técnicas — sistemas, redes, análise de informação.<span class="edit-note">edite esta linha</span></p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="projetos">
+    <p class="kicker">Projetos</p>
+    <h2>Trabalhos recentes</h2>
+    <div class="projects">
+      <div class="project">
+        <p class="project-title">Aprendizado de Máquina Não Supervisionado</p>
+        <p class="project-desc">Análise de empresas combinando K-Means (segmentação) e Apriori (regras de associação), desenvolvido na pós-graduação em Data Science &amp; IA (Senac-DF).</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">K-Means</span>
+          <span class="tag">Apriori</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/leonardozell/unsupervised-learning" target="_blank" rel="noopener">Repositório</a>
+        </div>
+      </div>
+
+      <div class="project placeholder edit">
+        <p class="project-title">Nome do projeto 2</p>
+        <p class="project-desc">Descreva o problema, os dados usados e o resultado em 1–2 frases.<span class="edit-note">edite este card</span></p>
+        <div class="tags">
+          <span class="tag">tech</span>
+          <span class="tag">tech</span>
+        </div>
+        <div class="project-links">
+          <a href="#">Repositório</a>
+        </div>
+      </div>
+
+      <div class="project placeholder edit">
+        <p class="project-title">Nome do projeto 3</p>
+        <p class="project-desc">Descreva o problema, os dados usados e o resultado em 1–2 frases.<span class="edit-note">edite este card</span></p>
+        <div class="tags">
+          <span class="tag">tech</span>
+          <span class="tag">tech</span>
+        </div>
+        <div class="project-links">
+          <a href="#">Repositório</a>
+        </div>
+      </div>
+
+      <div class="project placeholder edit">
+        <p class="project-title">Nome do projeto 4</p>
+        <p class="project-desc">Descreva o problema, os dados usados e o resultado em 1–2 frases.<span class="edit-note">edite este card</span></p>
+        <div class="tags">
+          <span class="tag">tech</span>
+          <span class="tag">tech</span>
+        </div>
+        <div class="project-links">
+          <a href="#">Repositório</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="kicker">Skills</p>
+    <h2>Ferramentas e conhecimento</h2>
+    <div class="skills-grid">
+      <div class="skill-group edit">
+        <h3>Linguagens</h3>
+        <ul>
+          <li>Python</li>
+          <li>SQL</li>
+          <li>—</li>
+        </ul>
+        <span class="edit-note">edite: liste as que você realmente domina</span>
+      </div>
+      <div class="skill-group edit">
+        <h3>Dados &amp; ML</h3>
+        <ul>
+          <li>ETL</li>
+          <li>Pandas / scikit-learn</li>
+          <li>—</li>
+        </ul>
+        <span class="edit-note">edite conforme seu currículo</span>
+      </div>
+      <div class="skill-group edit">
+        <h3>Ferramentas</h3>
+        <ul>
+          <li>Power BI / Looker</li>
+          <li>Git &amp; GitHub</li>
+          <li>—</li>
+        </ul>
+        <span class="edit-note">edite conforme seu currículo</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <p class="kicker">Contato</p>
+    <div class="contact-row">
+      <ul class="contact-links">
+        <li><a href="mailto:seuemail@exemplo.com" class="edit">seuemail@exemplo.com<span class="edit-note">edite: seu e-mail</span></a></li>
+        <li><a href="https://www.linkedin.com/in/leonardozell" target="_blank" rel="noopener">linkedin.com/in/leonardozell</a></li>
+        <li><a href="https://github.com/leonardozell" target="_blank" rel="noopener">github.com/leonardozell</a></li>
+      </ul>
+      <p class="contact-note">Aberto a oportunidades em Engenharia de Dados e Ciência de Dados. Disponível para viagens.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>Leonardo Aires de Oliveira</span>
+  <span>Brasília, DF — 2026</span>
+</footer>
+
+</body>
+</html>
